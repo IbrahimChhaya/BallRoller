@@ -64,6 +64,7 @@ public class BallController : MonoBehaviour
         // add code to change speed based on score
         // make it so that the speed gets faster as the score increases
 
+
         // if the ball is moving in the z direction, then move it in the x direction
         if (rb.velocity.z > 0)
         {

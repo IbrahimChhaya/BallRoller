@@ -77,6 +77,7 @@ public class PlatformSpawner : MonoBehaviour
     public void startSpawning()
     {
         // start spawning the platforms
+        // when does this stop? consider optimisation
         InvokeRepeating("spawnPlatform", 0.1f, 0.2f);
     }
 }

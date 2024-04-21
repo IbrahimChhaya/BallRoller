@@ -40,5 +40,6 @@ public class GameManager : MonoBehaviour
     void startScore()
     {
         // start the score
+        // coroutines or invoke repeating? consider optimisation, may need to change other scripts
     }
 }
