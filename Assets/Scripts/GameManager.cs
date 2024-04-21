@@ -5,9 +5,17 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public bool gameOver;
-    public int score;
+    bool gameOver = false;
+    int score = 0;
 
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,5 +26,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    // start the game
+    public void gameStart()
+    {
+        // start tracking the score
+        startScore();
+        // start spawning the platforms
+        gameObject.GetComponent<PlatformSpawner>().startSpawning();
+    }
+
+    void startScore()
+    {
+        // start the score
     }
 }
