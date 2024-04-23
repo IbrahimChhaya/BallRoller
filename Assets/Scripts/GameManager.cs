@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    bool gameStarted = false;
     bool gameOver = false;
     int score = 0;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     // start the game
     public void gameStart()
     {
+        gameStarted = true;
         // start tracking the score
         startScore();
         // start spawning the platforms
@@ -41,5 +43,10 @@ public class GameManager : MonoBehaviour
     {
         // start the score
         // coroutines or invoke repeating? consider optimisation, may need to change other scripts
+    }
+
+    public bool isGameStarted()
+    {
+        return gameStarted;
     }
 }
