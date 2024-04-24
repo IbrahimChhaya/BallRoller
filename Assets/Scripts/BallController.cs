@@ -45,7 +45,9 @@ public class BallController : MonoBehaviour
         {
             // reset the camera's parent to null so that the camera doesn't follow the ball anymore
             Camera.main.transform.SetParent(null);
+            // game over
             gameover = true;
+            GameManager.instance.gameEnd();
             // drop it like it's hot
             rb.velocity = new Vector3(0, -25f, 0);
             // destroy the ball after 2 seconds to free up memory
