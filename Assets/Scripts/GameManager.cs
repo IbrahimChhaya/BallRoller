@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     bool gameStarted = false;
     bool gameOver = false;
     int score;
-    int highScore;
 
     void Awake()
     {
@@ -21,9 +20,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
-        PlayerPrefs.SetInt("score", score);
-        highScore = PlayerPrefs.GetInt("highScore", score);
+
     }
 
     // Update is called once per frame
@@ -36,18 +33,12 @@ public class GameManager : MonoBehaviour
     public void gameStart()
     {
         gameStarted = true;
+        // hide gui
+        gameObject.GetComponent<UiManager>().showGameStart();
         // start tracking the score
         startScore();
         // start spawning the platforms
         gameObject.GetComponent<PlatformSpawner>().startSpawning();
-    }
-
-    public void gameEnd()
-    {
-        gameOver = true;
-        // stop the score
-        // show the game over panel
-        // show the restart button
     }
 
     public void startScore()
@@ -64,12 +55,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void gameEnd()
+    {
+        gameOver = true;
+        // stop the score
+        stopScore();
+        // show gui
+        gameObject.GetComponent<UiManager>().showGameOver();
+        // stop spawning the platforms
+        gameObject.GetComponent<PlatformSpawner>().stopSpawning();
+    }
+
     public void stopScore()
     {
         CancelInvoke("incrementScore");
         // save the score
         PlayerPrefs.SetInt("score", score);
         // check if the score is greater than the high score
+        int highScore = PlayerPrefs.GetInt("highScore", score);
         if (score > highScore)
         {
             PlayerPrefs.SetInt("highScore", score);

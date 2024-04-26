@@ -80,4 +80,9 @@ public class PlatformSpawner : MonoBehaviour
         // when does this stop? consider optimisation
         InvokeRepeating("spawnPlatform", 0.1f, 0.2f);
     }
+
+    public void stopSpawning()
+    {
+        CancelInvoke("spawnPlatform");
+    }
 }
