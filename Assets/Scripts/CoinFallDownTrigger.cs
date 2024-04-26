@@ -24,7 +24,7 @@ public class CoinFallDownTrigger : MonoBehaviour
         {
             GetComponentInParent<Rigidbody>().useGravity = true;
             GetComponentInParent<Rigidbody>().isKinematic = false;
-            Destroy(gameObject, 1.5f);
+            Destroy(gameObject.transform.parent.gameObject, 1.5f);
         }
     }
 }

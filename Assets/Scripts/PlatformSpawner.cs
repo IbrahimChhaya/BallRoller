@@ -58,6 +58,7 @@ public class PlatformSpawner : MonoBehaviour
 
     void spawnAxis(char axis)
     {
+        float randPos = Random.Range(0, 0.8f);
         // get the position of the prefab platform
         Vector3 pos = position;
         // if the axis is x, then increment the x position by the size of the platform
@@ -69,10 +70,10 @@ public class PlatformSpawner : MonoBehaviour
             {
                 float goldPos;
                 if (rand < 20)
-                    goldPos = pos.x + 0.8f;
+                    goldPos = pos.x + randPos;
                 else
-                    goldPos = pos.x - 0.8f;
-                Instantiate(goldCoin, new Vector3(pos.x, pos.y + 1, pos.z), goldCoin.transform.rotation);
+                    goldPos = pos.x - randPos;
+                Instantiate(goldCoin, new Vector3(goldPos, pos.y + 1, pos.z), goldCoin.transform.rotation);
             }
         }
         // if the axis is z, then increment the z position by the size of the platform
@@ -84,10 +85,10 @@ public class PlatformSpawner : MonoBehaviour
             {
                 float goldPos;
                 if (rand < 20)
-                    goldPos = pos.z + 0.8f;
+                    goldPos = pos.z + randPos;
                 else
-                    goldPos = pos.z - 0.8f;
-                Instantiate(goldCoin, new Vector3(pos.x, pos.y + 1, pos.z), goldCoin.transform.rotation);
+                    goldPos = pos.z - randPos;
+                Instantiate(goldCoin, new Vector3(pos.x, pos.y + 1, goldPos), goldCoin.transform.rotation);
             }
         }
         // instantiate the platform at the new position
