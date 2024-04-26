@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerCheck : MonoBehaviour
+public class CoinFallDownTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,8 @@ public class TriggerCheck : MonoBehaviour
         // and destroy the platform after 1.5 seconds
         if (col.gameObject.tag == "Ball")
         {
-            gameObject.GetComponent<Rigidbody>().useGravity = true;
+            GetComponentInParent<Rigidbody>().useGravity = true;
+            GetComponentInParent<Rigidbody>().isKinematic = false;
             Destroy(gameObject, 1.5f);
         }
     }

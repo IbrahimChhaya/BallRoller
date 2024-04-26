@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // start the game
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     public void startScore()
     {
         // start counting score after 1 second
-        InvokeRepeating("incrementScore", 1.0f, 0.5f);
+        InvokeRepeating("incrementScore", 0.1f, 0.5f);
     }
 
     void incrementScore()
@@ -69,13 +69,12 @@ public class GameManager : MonoBehaviour
     public void stopScore()
     {
         CancelInvoke("incrementScore");
-        // save the score
-        PlayerPrefs.SetInt("score", score);
         // check if the score is greater than the high score
-        int highScore = PlayerPrefs.GetInt("highScore", score);
+        int highScore = PlayerPrefs.GetInt("highScore", 0);
         if (score > highScore)
         {
             PlayerPrefs.SetInt("highScore", score);
+            PlayerPrefs.Save();
         }
     }
 
@@ -84,7 +83,18 @@ public class GameManager : MonoBehaviour
         return gameStarted;
     }
 
-    public bool isGameOver() {
+    public bool isGameOver()
+    {
         return gameOver;
+    }
+
+    public int getScore()
+    {
+        return score; 
+    }
+
+    public void scoreMultiplier()
+    {
+        score += 20;
     }
 }

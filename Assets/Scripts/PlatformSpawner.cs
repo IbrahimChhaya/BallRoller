@@ -10,6 +10,8 @@ public class PlatformSpawner : MonoBehaviour
 
     public GameObject extendedPlatform2;
 
+    public GameObject goldCoin;
+
     Vector3 position;
 
     float size;
@@ -62,11 +64,31 @@ public class PlatformSpawner : MonoBehaviour
         if (axis == 'x')
         {
             pos.x += size;
+            int rand = Random.Range(0, 100);
+            if (rand < 10) 
+            {
+                float goldPos;
+                if (rand < 20)
+                    goldPos = pos.x + 0.8f;
+                else
+                    goldPos = pos.x - 0.8f;
+                Instantiate(goldCoin, new Vector3(pos.x, pos.y + 1, pos.z), goldCoin.transform.rotation);
+            }
         }
         // if the axis is z, then increment the z position by the size of the platform
         else if (axis == 'z')
         {
             pos.z += size;
+            int rand = Random.Range(0, 100);
+            if (rand < 10)
+            {
+                float goldPos;
+                if (rand < 20)
+                    goldPos = pos.z + 0.8f;
+                else
+                    goldPos = pos.z - 0.8f;
+                Instantiate(goldCoin, new Vector3(pos.x, pos.y + 1, pos.z), goldCoin.transform.rotation);
+            }
         }
         // instantiate the platform at the new position
         Instantiate(platform, pos, Quaternion.identity);
