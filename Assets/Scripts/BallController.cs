@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BallController : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class BallController : MonoBehaviour
             {
                 // add force to the ball
                 rb.velocity = new Vector3(0, 0, speed);
+                vector3 = rb.velocity;
                 started = true;
                 GameManager.instance.gameStart();
             }
@@ -55,8 +57,6 @@ public class BallController : MonoBehaviour
             {
                 SwitchDirection();
             }
-            /*if (speed < 10)
-                speed += 0.001f;*/
         }
     }
 
@@ -77,6 +77,16 @@ public class BallController : MonoBehaviour
             rb.velocity = new Vector3(0, 0, speed);
         }
         vector3 = rb.velocity;
+
+        int score = GameManager.instance.getScore();
+        if (score >= 4000)
+            speed = 10;
+        else if (score >= 3000)
+            speed = 9;
+        else if (score >= 2000)
+            speed = 8;
+        else if (score >= 1000)
+            speed = 7;
     }
 
     private void OnCollisionEnter(Collision collision)
