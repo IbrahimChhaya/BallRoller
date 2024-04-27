@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class BallController : MonoBehaviour
@@ -19,18 +20,37 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool soundBtn = false;
+        PointerEventData pointer = new PointerEventData(EventSystem.current);
+        pointer.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointer, raycastResults);
+
+        if (raycastResults.Count > 0)
+        {
+            foreach (var go in raycastResults)
+            {
+                if (go.gameObject.tag == "SoundButton")
+                {
+                    soundBtn = true;
+                }
+            }
+        }
         // if game is not started, wait for the player to click the mouse button (or tap the screen in our case)
         // then start the game
         if (!started)
         {
             // won't this be too sensitive on phones? what if swipe down to open notifs?
-            if (Input.GetMouseButtonDown(0) && Input.mousePosition.y > 75f)
+            if (Input.GetMouseButtonDown(0) && Input.mousePosition.y > 75f && !soundBtn)
             {
-                // add force to the ball
-                rb.velocity = new Vector3(0, 0, speed);
-                vector3 = rb.velocity;
-                started = true;
-                GameManager.instance.gameStart();
+                {
+                    // add force to the ball
+                    rb.velocity = new Vector3(0, 0, speed);
+                    vector3 = rb.velocity;
+                    started = true;
+                    GameManager.instance.gameStart();
+                }
             }
         }
         else

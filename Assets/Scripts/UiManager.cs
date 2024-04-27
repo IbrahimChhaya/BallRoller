@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
@@ -22,11 +23,32 @@ public class UiManager : MonoBehaviour
 
     public GameObject runningScore;
 
+    public GameObject soundButton;
+
+    public Sprite soundOn;
+
+    public Sprite soundOff;
+
+    bool mute;
+
+    public GameObject backgroundMusic;
+
     // Start is called before the first frame update
     void Start()
     {
         highScore.GetComponent<TextMeshProUGUI>().text = "High Score: " 
                                                         + PlayerPrefs.GetInt("highScore", 0);
+        mute = Convert.ToBoolean(PlayerPrefs.GetInt("mute", 0));
+        if (!mute)
+        {
+            // if not muted, then mute
+            soundButton.GetComponent<Image>().sprite = soundOn;
+        }
+        else
+        {
+            soundButton.GetComponent<Image>().sprite = soundOff;
+        }
+        backgroundMusic.GetComponent<AudioSource>().mute = mute;
 
     }
 
@@ -56,6 +78,7 @@ public class UiManager : MonoBehaviour
         gameName.SetActive(true);
         tapToPlay.SetActive(true);
         highScore.SetActive(true);
+        soundButton.SetActive(true);
         runningScore.SetActive(false);
     }
 
@@ -64,6 +87,7 @@ public class UiManager : MonoBehaviour
         gameName.SetActive(false);
         tapToPlay.SetActive(false);
         highScore.SetActive(false);
+        soundButton.SetActive(false);
         runningScore.SetActive(true);
     }
 
@@ -77,5 +101,24 @@ public class UiManager : MonoBehaviour
                                                     + PlayerPrefs.GetInt("highScore", GameManager.instance.getScore()).ToString();
         tapToReplay.SetActive(true);
         runningScore.SetActive(false);
+    }
+
+    public void soundOnOff()
+    {
+        if (!mute)
+        {
+            // if not muted, then mute
+            soundButton.GetComponent<Image>().sprite = soundOff;
+            mute = true;
+            PlayerPrefs.SetInt("mute", Convert.ToInt32(mute));
+        }
+        else
+        {
+            // if muted, unmute
+            mute = false;
+            soundButton.GetComponent<Image>().sprite = soundOn;
+            PlayerPrefs.SetInt("mute", Convert.ToInt32(mute));
+        }
+        backgroundMusic.GetComponent<AudioSource>().mute = mute;
     }
 }

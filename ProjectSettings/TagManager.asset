@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ball
   - Coin
+  - SoundButton
+  - SkinButton
   layers:
   - Default
   - TransparentFX
