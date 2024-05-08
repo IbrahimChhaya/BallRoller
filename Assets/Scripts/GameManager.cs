@@ -9,6 +9,15 @@ public class GameManager : MonoBehaviour
     bool gameOver = false;
     int score;
 
+    //skin selection
+    public GameObject cube;
+    public GameObject sphere;
+
+    public GameObject playerObject;
+
+    public Mesh cubeMesh;
+    public Mesh sphereMesh;
+
     void Awake()
     {
         if (instance == null)
@@ -20,7 +29,16 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (PlayerPrefs.GetString("skin", "Cube") == "Cube")
+        {
+            cube.GetComponent<OutlineObject>().enabled = true;
+            playerObject.GetComponent<MeshFilter>().mesh = cubeMesh;
+        }
+        else
+        {
+            sphere.GetComponent<OutlineObject>().enabled = true;
+            playerObject.GetComponent<MeshFilter>().mesh = sphereMesh;
+        }
     }
 
     // Update is called once per frame
@@ -96,5 +114,23 @@ public class GameManager : MonoBehaviour
     public void scoreMultiplier()
     {
         score += 20;
+    }
+
+    public void selectSkin(string objectName)
+    {
+        if (objectName == "Cube")
+        {
+            cube.GetComponent<OutlineObject>().enabled = true;
+            sphere.GetComponent<OutlineObject>().enabled = false;
+            playerObject.GetComponent<MeshFilter>().mesh = cubeMesh;
+        }
+        else
+        {
+            cube.GetComponent<OutlineObject>().enabled = false;
+            sphere.GetComponent<OutlineObject>().enabled = true;
+            playerObject.GetComponent<MeshFilter>().mesh = sphereMesh;
+        }
+
+        PlayerPrefs.SetString("skin", objectName);
     }
 }

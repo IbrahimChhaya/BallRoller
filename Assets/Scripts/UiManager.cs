@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    //UI components
 
     public GameObject gameName;
 
@@ -23,6 +24,10 @@ public class UiManager : MonoBehaviour
 
     public GameObject runningScore;
 
+    public GameObject tapButton;
+
+    //background music
+
     public GameObject soundButton;
 
     public Sprite soundOn;
@@ -32,6 +37,16 @@ public class UiManager : MonoBehaviour
     bool mute;
 
     public GameObject backgroundMusic;
+
+    //selection
+
+    public GameObject skinButton;
+
+    public GameObject selection;
+
+    public GameObject cubeSelector;
+
+    public GameObject sphereSelector;
 
     // Start is called before the first frame update
     void Start()
@@ -120,5 +135,22 @@ public class UiManager : MonoBehaviour
             PlayerPrefs.SetInt("mute", Convert.ToInt32(mute));
         }
         backgroundMusic.GetComponent<AudioSource>().mute = mute;
+    }
+
+    public void selectSkinButton()
+    {
+        //enable animation to move camera right
+        //enable disabled game objects
+        selection.SetActive(true);
+        cubeSelector.SetActive(true);
+        sphereSelector.SetActive(true);
+
+        //disable UI components
+        gameName.SetActive(false);
+        tapToPlay.SetActive(false);
+        highScore.SetActive(false);
+        soundButton.SetActive(false);
+        skinButton.SetActive(false);
+        tapButton.SetActive(false);
     }
 }
