@@ -6,8 +6,8 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class BallController : MonoBehaviour
 {
-    public float speed = 6;
-    public bool started = false;
+    float speed = 6;
+    bool started = false;
     Rigidbody rb;
     Vector3 vector3;
 
@@ -24,7 +24,7 @@ public class BallController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down, Color.red);
 
         // if the ball falls off the platform, then game over
-        if (!Physics.Raycast(transform.position, Vector3.down, 1f))
+        if (!Physics.Raycast(transform.position, Vector3.down, 1f) && started)
         {
             // reset the camera's parent to null so that the camera doesn't follow the ball anymore
             Camera.main.transform.SetParent(null);
@@ -42,6 +42,8 @@ public class BallController : MonoBehaviour
     {
         if (!started)
         {
+            Camera.main.gameObject.SetActive(false);
+            transform.GetChild(0).gameObject.SetActive(true);
             rb.velocity = new Vector3(0, 0, speed);
             vector3 = rb.velocity;
             started = true;

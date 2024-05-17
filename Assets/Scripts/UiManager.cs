@@ -44,9 +44,17 @@ public class UiManager : MonoBehaviour
 
     public GameObject selection;
 
-    public GameObject cubeSelector;
+    public GameObject mainCamera;
 
-    public GameObject sphereSelector;
+    public GameObject secondaryCamera;
+
+    public GameObject playButton;
+
+    Animator animator;
+
+    public GameObject cubeButton;
+
+    public GameObject sphereButton;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +73,7 @@ public class UiManager : MonoBehaviour
         }
         backgroundMusic.GetComponent<AudioSource>().mute = mute;
 
+        animator = secondaryCamera.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -104,6 +113,8 @@ public class UiManager : MonoBehaviour
         highScore.SetActive(false);
         soundButton.SetActive(false);
         runningScore.SetActive(true);
+        skinButton.SetActive(false);
+        playButton.SetActive(false);
     }
 
     public void showGameOver()
@@ -139,18 +150,27 @@ public class UiManager : MonoBehaviour
 
     public void selectSkinButton()
     {
-        //enable animation to move camera right
-        //enable disabled game objects
-        selection.SetActive(true);
-        cubeSelector.SetActive(true);
-        sphereSelector.SetActive(true);
+        Camera.main.gameObject.SetActive(false);
+        secondaryCamera.SetActive(true);
+
+        animator.SetTrigger("ButtonClick");
 
         //disable UI components
-        gameName.SetActive(false);
-        tapToPlay.SetActive(false);
         highScore.SetActive(false);
-        soundButton.SetActive(false);
-        skinButton.SetActive(false);
+        tapToPlay.SetActive(false);
         tapButton.SetActive(false);
+        skinButton.SetActive(false);
+
+        //enable disabled game objects
+        selection.SetActive(true);
+        playButton.SetActive(true);
+    }
+
+    public void selectPlayButton()
+    {
+        animator.SetTrigger("PlayButtonClick");
+
+        cubeButton.SetActive(false);
+        sphereButton.SetActive(false);
     }
 }
